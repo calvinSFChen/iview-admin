@@ -82,7 +82,8 @@ export default {
           password
         }).then(res => {
           const data = res.data
-          commit('setToken', data.token)
+          commit('setToken', data.userinfo.token)
+          commit('menus/setMenusNav', data.menus)
           resolve()
         }).catch(err => {
           reject(err)

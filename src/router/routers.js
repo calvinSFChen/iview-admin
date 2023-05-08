@@ -108,7 +108,7 @@ export default [
     component: Main,
     children: [
       {
-        path: 'tree_select_page',
+        path: '/components/tree_select_page',
         name: 'tree_select_page',
         meta: {
           icon: 'md-arrow-dropdown-circle',

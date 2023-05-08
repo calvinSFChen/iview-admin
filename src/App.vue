@@ -5,49 +5,48 @@
 </template>
 
 <script>
-import { on, off } from 'iview/src/utils/dom';
-import { setMatchMedia } from 'iview/src/utils/assist';
-import { mapMutations } from 'vuex';
-setMatchMedia();
+// import { on, off } from 'iview/src/utils/dom'
+import { setMatchMedia } from 'iview/src/utils/assist'
+import { mapMutations } from 'vuex'
+setMatchMedia()
 
 export default {
   name: 'App',
   methods: {
     ...mapMutations('media', ['setDevice']),
-    handleWindowResize() {
-      this.handleMatchMedia();
+    handleWindowResize () {
+      this.handleMatchMedia()
     },
-    handleMatchMedia() {
-      const matchMedia = window.matchMedia;
+    handleMatchMedia () {
+      const matchMedia = window.matchMedia
 
       if (matchMedia('(max-width: 600px)').matches) {
-        var deviceWidth = document.documentElement.clientWidth || window.innerWidth;
-        let css = 'calc(100vw/7.5)';
-        document.documentElement.style.fontSize = css;
-        this.setDevice('Mobile');
+        // var deviceWidth = document.documentElement.clientWidth || window.innerWidth
+        let css = 'calc(100vw/7.5)'
+        document.documentElement.style.fontSize = css
+        this.setDevice('Mobile')
       } else if (matchMedia('(max-width: 992px)').matches) {
-        this.setDevice('Tablet');
+        this.setDevice('Tablet')
       } else {
-        this.setDevice('Desktop');
+        this.setDevice('Desktop')
       }
     },
-    reload() {
-      this.isRouterAlive = false;
+    reload () {
+      this.isRouterAlive = false
       this.$nextTick(function () {
-        this.isRouterAlive = true;
-      });
-    },
+        this.isRouterAlive = true
+      })
+    }
   },
-  mounted() {
-    on(window, 'resize', this.handleWindowResize);
-    this.handleMatchMedia();
+  mounted () {
+    // on(window, 'resize', this.handleWindowResize)
+    this.handleMatchMedia()
   },
-  beforeDestroy() {
-    off(window, 'resize', this.handleWindowResize);
-  },
+  beforeDestroy () {
+    // off(window, 'resize', this.handleWindowResize)
+  }
 }
 </script>
-
 
 <style lang="less">
 .size {
@@ -107,4 +106,3 @@ body {
   left: -73px !important;
 }
 </style>
-

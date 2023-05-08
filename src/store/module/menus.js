@@ -31,7 +31,6 @@ export default {
       state.childMenuList = list
     },
     setMenusNav (state, menuList) {
-      console.log(1111, menuList)
       state.menuList = menuList
     }
   },

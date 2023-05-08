@@ -32,7 +32,7 @@
             v-for="(item, index) in list"
             ref="tagsPageOpened"
             :key="`tag-nav-${index}`"
-            :name="item.name"
+            :name="item.path"
             :data-route-item="item"
             @on-close="handleClose(item)"
             @click.native="handleClick(item)"
@@ -76,8 +76,8 @@ export default {
   },
   computed: {
     currentRouteObj () {
-      const { name, params, query } = this.value
-      return { name, params, query }
+      const { path, name, params, query } = this.value
+      return { path, name, params, query }
     }
   },
   methods: {
@@ -172,7 +172,7 @@ export default {
       })
     },
     contextMenu (item, e) {
-      if (item.name === this.$config.homeName) {
+      if (item.path === this.$config.homeName) {
         return
       }
       this.visible = true

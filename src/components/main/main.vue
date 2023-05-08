@@ -1,7 +1,7 @@
 <template>
   <Layout style="height: 100%" class="main">
     <Sider hide-trigger collapsible :width="256" :collapsed-width="64" v-model="collapsed" class="left-sider" :style="{overflow: 'hidden'}">
-      <side-menu accordion ref="sideMenu" :active-name="$route.name" :collapsed="collapsed" @on-select="turnToPage" :menu-list="menuList">
+      <side-menu accordion ref="sideMenu" :active-name="$route.path" :collapsed="collapsed" @on-select="turnToPage" :menu-list="menuList">
         <!-- 需要放在菜单上面的内容，如Logo，写在side-menu标签内部，如下 -->
         <div class="logo-con">
           <img v-show="!collapsed" :src="maxLogo" key="max-logo" />
@@ -87,7 +87,7 @@ export default {
       return list
     },
     menuList () {
-      return this.$store.getters.menuList
+      return this.$store.state.menus.menuList
     },
     local () {
       return this.$store.state.app.local
@@ -112,26 +112,32 @@ export default {
       'handleLogin',
       'getUnreadMessageCount'
     ]),
-    turnToPage (route) {
-      let { name, params, query } = {}
-      if (typeof route === 'string') name = route
-      else {
-        name = route.name
+    turnToPage (route, all) {
+      let { path, name, params, query } = {}
+      if (typeof route === 'string' && !all) {
+        path = route
+      } else if (typeof route === 'string' && all) {
+        path = route
+      } else {
+        path = route.path
         params = route.params
         query = route.query
       }
-      if (name.indexOf('isTurnByHref_') > -1) {
-        window.open(name.split('_')[1])
+      if (typeof route === 'string' && route === this.$config.homeName) {
+        name = route
+      }
+      if (path === this.$router.currentRoute.path || path === this.$router.currentRoute.name) {
         return
       }
       this.$router.push({
+        path,
         name,
         params,
         query
       })
     },
     handleCollapsedChange (state) {
-      this.collapsed = state
+      // this.collapsed = state
     },
     handleCloseTag (res, type, route) {
       if (type !== 'others') {
@@ -151,9 +157,10 @@ export default {
   },
   watch: {
     '$route' (newRoute) {
-      const { name, query, params, meta } = newRoute
+      const { path, name, query, params, meta } = newRoute
+      console.log('watch', newRoute)
       this.addTag({
-        route: { name, query, params, meta },
+        route: { path, name, query, params, meta },
         type: 'push'
       })
       this.setBreadCrumb(newRoute)
@@ -167,15 +174,15 @@ export default {
      */
     this.setTagNavList()
     this.setHomeRoute(routers)
-    const { name, params, query, meta } = this.$route
+    const { path, name, params, query, meta } = this.$route
     this.addTag({
-      route: { name, params, query, meta }
+      route: { path, name, params, query, meta }
     })
     this.setBreadCrumb(this.$route)
     // 设置初始语言
     this.setLocal(this.$i18n.locale)
     // 如果当前打开页面不在标签栏中，跳到homeName页
-    if (!this.tagNavList.find(item => item.name === this.$route.name)) {
+    if (!this.tagNavList.find(item => item.path === this.$route.path)) {
       this.$router.push({
         name: this.$config.homeName
       })

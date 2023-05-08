@@ -8,17 +8,17 @@
 // | Author: CRMEB Team <admin@crmeb.com>
 // +---------------------------------------------------------------------
 
-import axios from 'axios';
-import { Message } from 'iview';
-import { getCookies, removeCookies } from '@/libs/util';
-import configs from '@/config';
-import router from '@/router';
+import axios from 'axios'
+import { Message } from 'iview'
+// import { getCookies, removeCookies } from '@/libs/util'
+import configs from '@/config'
+import router from '@/router'
 const service = axios.create({
   baseURL: configs.baseUrl.dev,
-  timeout: 10000, // 请求超时时间
-});
+  timeout: 10000 // 请求超时时间
+})
 
-axios.defaults.withCredentials = true; // 携带cookie
+axios.defaults.withCredentials = true // 携带cookie
 
 // 请求拦截器
 service.interceptors.request.use(
@@ -27,7 +27,7 @@ service.interceptors.request.use(
     switch (process.env.NODE_ENV) {
       case 'production':
         config.baseURL = configs.baseUrl.pro
-        break;
+        break
       default:
         config.baseURL = configs.baseUrl.dev
     }
@@ -47,16 +47,15 @@ service.interceptors.request.use(
   (error) => {
     // do something with request error
     return Promise.reject(error)
-  },
-);
+  }
+)
 
 // response interceptor
 service.interceptors.response.use(
   (response) => {
-
     let obj = {}
-    if (!!response.data) {
-      if (typeof response.data == 'string') {
+    if (response.data) {
+      if (typeof response.data === 'string') {
         obj = JSON.parse(response.data)
       } else {
         obj = response.data
@@ -76,15 +75,16 @@ service.interceptors.response.use(
         // removeCookies('expires_time');
         // removeCookies('uuid');
         // router.replace({ name: 'login' });
-        // break;
+        break
       case 110005:
       case 110006:
       case 110007:
-        // removeCookies('kefuInfo');
+        // removeCookies('kefuInfo')
         // removeCookies('kefu_token');
         // removeCookies('kefu_expires_time');
         // removeCookies('kefu_uuid');
         // router.replace({ path: '/kefu' });
+        // console.log(9999)
         break
       case 110008:
         router.replace({ name: 'system_opendir_login' })
@@ -94,9 +94,9 @@ service.interceptors.response.use(
     }
   },
   (error) => {
-    Message.error(error.msg);
-    return Promise.reject(error);
-  },
-);
+    Message.error(error.msg)
+    return Promise.reject(error)
+  }
+)
 
-export default service;
+export default service
