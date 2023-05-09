@@ -8,7 +8,7 @@ import {
   removeReaded,
   restoreTrash,
   getUnreadCount
-} from '@/api/base-module/user'
+} from '@/api/module/user'
 import { setToken, getToken } from '@/libs/util'
 
 export default {
@@ -75,6 +75,7 @@ export default {
   actions: {
     // 登录
     handleLogin ({ commit, state }, { userName, password }) {
+      console.log('handleLogin')
       userName = userName.trim()
       return new Promise((resolve, reject) => {
         login({

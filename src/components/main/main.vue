@@ -23,7 +23,7 @@
           <div class="tag-nav-wrapper">
             <tags-nav :value="$route" @input="handleClick" :list="tagNavList" @on-close="handleCloseTag"/>
           </div>
-          <Content class="content-wrapper">
+          <Content class="content-wrapper" style="margin: 10px;margin-bottom: 0px;background: white;border-radius: 10px;">
             <keep-alive :include="cacheList">
               <router-view/>
             </keep-alive>

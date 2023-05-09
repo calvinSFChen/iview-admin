@@ -36,16 +36,17 @@ export default {
   },
   actions: {
     getMenusNavList ({ commit }) {
-      return new Promise((resolve, reject) => {
-        // menusApi()
-        //   .then(async (res) => {
-        //     resolve(res)
-        //     commit('getmenusNav', res.data.menus)
-        //   })
-        //   .catch((res) => {
-        //     reject(res)
-        //   })
-      })
+      console.log('getMenusNavList')
+      // return new Promise((resolve, reject) => {
+      // menusApi()
+      //   .then(async (res) => {
+      //     resolve(res)
+      //     commit('getmenusNav', res.data.menus)
+      //   })
+      //   .catch((res) => {
+      //     reject(res)
+      //   })
+      // })
     }
   }
 }
