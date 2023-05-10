@@ -1,6 +1,3 @@
-import Main from '@/components/main'
-// import parentView from '@/components/parent-view'
-import setting from './module/setting'
 /**
  * iview-admin中meta除了原生参数外可配置的参数:
  * meta: {
@@ -16,6 +13,10 @@ import setting from './module/setting'
  *  beforeCloseName: (-) 设置该字段，则在关闭当前tab页时会去'@/router/before-close.js'里寻找该字段名对应的方法，作为关闭前的钩子函数
  * }
  */
+import Main from '@/components/main'
+// import parentView from '@/components/parent-view'
+import setting from './module/setting'
+import user from './module/user'
 
 export default [
   {
@@ -41,7 +42,8 @@ export default [
       }
     ]
   },
-  ...setting
+  ...setting,
+  ...user
   // {
   //   path: '/setting',
   //   name: 'setting',
@@ -59,14 +61,6 @@ export default [
   //   ]
   // },
   // {
-  //   path: '/login',
-  //   name: 'login',
-  //   meta: {
-  //     title: 'Login - 登录',
-  //     hideInMenu: true
-  //   },
-  //   component: () => import('@/view/login/login.vue')
-  // },
   // {
   //   path: '',
   //   name: 'doc',
